@@ -3,6 +3,7 @@ using ARM_CRUD_API.Services.Interfaces;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace ARM_CRUD_API.v1.Controllers
 {
@@ -19,14 +20,16 @@ namespace ARM_CRUD_API.v1.Controllers
 
 
 
-        [HttpPost]
-        [Route("createStaff")]
+        [HttpPost("getAllStaffs")]
+      //  [Route("createStaff")]
         public async Task<IActionResult> CreateStaff([FromBody] StaffDTO staffDTO)
         {
 
             try
             {
-                var response = _staffService.CreateStaff(staffDTO);
+                var resp = _staffService.CreateStaff(staffDTO);
+
+                var response = new SuccessResponse { Title = "Success", Data = resp, StatusCode = StatusCodes.Status200OK, SuccessMessage = "Staff created." };
                 return Ok(response);
             }
             catch (Exception)
@@ -47,7 +50,8 @@ namespace ARM_CRUD_API.v1.Controllers
         {
             try
             {
-                var response = _staffService.GetStaff(id);
+                var resp = _staffService.GetStaff(id);
+                var response = new SuccessResponse { Title = "Success", Data = resp, StatusCode = StatusCodes.Status200OK, SuccessMessage = "Staff retrieved." };
                 return Ok(response);
             }
             catch (Exception)
@@ -71,7 +75,8 @@ namespace ARM_CRUD_API.v1.Controllers
         {
             try
             {
-                var response = _staffService.GetAllStaffs();
+                var resp = _staffService.GetAllStaffs();
+                var response = new SuccessResponse { Title = "Success", Data = resp, StatusCode = StatusCodes.Status200OK, SuccessMessage = "All Staffs retrieved." };
                 return Ok(response);
             }
             catch (Exception)
