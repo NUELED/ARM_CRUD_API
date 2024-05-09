@@ -60,10 +60,20 @@ namespace ARM_CRUD_API.Services.Implementations
             return new StaffDTO();
         }
 
+
         public async Task<IEnumerable<StaffDTO>> GetAllStaffs(int? id = null)
         {
             _logger.LogInformation("Fetching allStaffs from the database.");
-            return _mapper.Map<IEnumerable<StaffDTO>>(_db.Staffs);
+
+            var staffEntities = await _db.Staffs.ToListAsync(); 
+
+            if (staffEntities == null)
+            {
+                _logger.LogWarning("No staff data found in the database.");
+                return Enumerable.Empty<StaffDTO>(); // Return an empty collection
+            }
+
+            return _mapper.Map<IEnumerable<StaffDTO>>(staffEntities);
         }
 
 

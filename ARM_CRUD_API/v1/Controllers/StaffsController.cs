@@ -50,9 +50,29 @@ namespace ARM_CRUD_API.v1.Controllers
         {
             try
             {
-                var resp = _staffService.GetStaff(id);
-                var response = new SuccessResponse { Title = "Success", Data = resp, StatusCode = StatusCodes.Status200OK, SuccessMessage = "Staff retrieved." };
-                return Ok(response);
+                var resp = await _staffService.GetStaff(id); // Assuming GetStaff is asynchronous
+                if (resp == null)
+                {
+                    // If resp is null, return a different success response
+                    return Ok(new SuccessResponse
+                    {
+                        Title = "Success",
+                        Data = null, // You may want to set this to null or any other value depending on your requirements
+                        StatusCode = StatusCodes.Status200OK,
+                        SuccessMessage = "Staff not found."
+                    });
+                }
+                else
+                {
+                    var response = new SuccessResponse
+                    {
+                        Title = "Success",
+                        Data = resp,
+                        StatusCode = StatusCodes.Status200OK,
+                        SuccessMessage = "Staff retrieved."
+                    };
+                    return Ok(response);
+                }
             }
             catch (Exception)
             {
@@ -75,9 +95,28 @@ namespace ARM_CRUD_API.v1.Controllers
         {
             try
             {
-                var resp = _staffService.GetAllStaffs();
-                var response = new SuccessResponse { Title = "Success", Data = resp, StatusCode = StatusCodes.Status200OK, SuccessMessage = "All Staffs retrieved." };
-                return Ok(response);
+                var resp = await _staffService.GetAllStaffs(); 
+                if (resp == null || !resp.Any()) 
+                {
+                    return Ok(new SuccessResponse
+                    {
+                        Title = "Success",
+                        Data = null, // You may want to set this to null or any other value depending on your requirements
+                        StatusCode = StatusCodes.Status200OK,
+                        SuccessMessage = "No staffs found."
+                    });
+                }
+                else
+                {
+                    var response = new SuccessResponse
+                    {
+                        Title = "Success",
+                        Data = resp,
+                        StatusCode = StatusCodes.Status200OK,
+                        SuccessMessage = "All Staffs retrieved."
+                    };
+                    return Ok(response);
+                }
             }
             catch (Exception)
             {
