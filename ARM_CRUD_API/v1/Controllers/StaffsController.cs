@@ -50,7 +50,7 @@ namespace ARM_CRUD_API.v1.Controllers
             try
             {
                 var resp = await _staffService.GetStaff(id); 
-                if (resp == null)
+                if (resp == null || resp.Id == 0 )
                 {
                     
                     return Ok(new SuccessResponse

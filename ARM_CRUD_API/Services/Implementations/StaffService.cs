@@ -35,6 +35,7 @@ namespace ARM_CRUD_API.Services.Implementations
             return objReturned;
         }
 
+
         public async Task<bool> DeleteStaffIfExists(int id)
         {
             var obj = await _db.Staffs.FirstOrDefaultAsync(c => c.Id == id);
