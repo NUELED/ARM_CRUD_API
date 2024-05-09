@@ -21,7 +21,6 @@ namespace ARM_CRUD_API.v1.Controllers
 
 
         [HttpPost("getAllStaffs")]
-      //  [Route("createStaff")]
         public async Task<IActionResult> CreateStaff([FromBody] StaffDTO staffDTO)
         {
 
@@ -50,14 +49,14 @@ namespace ARM_CRUD_API.v1.Controllers
         {
             try
             {
-                var resp = await _staffService.GetStaff(id); // Assuming GetStaff is asynchronous
+                var resp = await _staffService.GetStaff(id); 
                 if (resp == null)
                 {
-                    // If resp is null, return a different success response
+                    
                     return Ok(new SuccessResponse
                     {
                         Title = "Success",
-                        Data = null, // You may want to set this to null or any other value depending on your requirements
+                        Data = null,
                         StatusCode = StatusCodes.Status200OK,
                         SuccessMessage = "Staff not found."
                     });
@@ -101,7 +100,7 @@ namespace ARM_CRUD_API.v1.Controllers
                     return Ok(new SuccessResponse
                     {
                         Title = "Success",
-                        Data = null, // You may want to set this to null or any other value depending on your requirements
+                        Data = null, 
                         StatusCode = StatusCodes.Status200OK,
                         SuccessMessage = "No staffs found."
                     });

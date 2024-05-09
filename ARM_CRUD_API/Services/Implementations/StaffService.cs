@@ -26,7 +26,7 @@ namespace ARM_CRUD_API.Services.Implementations
 
             var obj = _mapper.Map<Staff>(objDTO);
             obj.Id = 0;
-            _logger.LogInformation("Adding a new Pokemon to the database.");
+            _logger.LogInformation("Adding a new staff to the database.");
 
             var addedObj = await _db.Staffs.AddAsync(obj);
             await _db.SaveChangesAsync();
