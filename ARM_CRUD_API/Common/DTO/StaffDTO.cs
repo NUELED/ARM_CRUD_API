@@ -1,7 +1,10 @@
-﻿namespace ARM_CRUD_API.Common.DTO
+﻿using System.Text.Json.Serialization;
+
+namespace ARM_CRUD_API.Common.DTO
 {
     public class StaffDTO
     {
+        
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

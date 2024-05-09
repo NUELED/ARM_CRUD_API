@@ -23,8 +23,21 @@ namespace ARM_CRUD_API.v1.Controllers
         [Route("createStaff")]
         public async Task<IActionResult> CreateStaff([FromBody] StaffDTO staffDTO)
         {
-            var response = _staffService.CreateStaff(staffDTO); 
-            return Ok(response);
+
+            try
+            {
+                var response = _staffService.CreateStaff(staffDTO);
+                return Ok(response);
+            }
+            catch (Exception)
+            {
+                return BadRequest(new ErrorResponse
+                {
+                    ErrorMessage = "Please there was an issue processing your  request at the moment.",
+                    StatusCode = StatusCodes.Status400BadRequest
+                });
+            }
+
         }
 
 
@@ -32,8 +45,22 @@ namespace ARM_CRUD_API.v1.Controllers
         [Route("getStaff")]
         public async Task<IActionResult> GetStaff(int id)
         {
-            var response = _staffService.GetStaff(id);
-            return Ok(response);
+            try
+            {
+                var response = _staffService.GetStaff(id);
+                return Ok(response);
+            }
+            catch (Exception)
+            {
+
+                return BadRequest(new ErrorResponse
+                {
+                    Title = "Unsuccessfull",
+                    ErrorMessage = "The staff does not exist.",
+                    StatusCode = StatusCodes.Status400BadRequest
+                });
+            }
+     
         }
 
 
@@ -42,8 +69,21 @@ namespace ARM_CRUD_API.v1.Controllers
         [Route("getAllStaffs")]
         public async Task<IActionResult> GetAllStaffs()
         {
-            var response = _staffService.GetAllStaffs();
-            return Ok(response);
+            try
+            {
+                var response = _staffService.GetAllStaffs();
+                return Ok(response);
+            }
+            catch (Exception)
+            {
+
+                return BadRequest(new ErrorResponse
+                {
+                    ErrorMessage = "Please there was an issue processing your  request at the moment.",
+                    StatusCode = StatusCodes.Status400BadRequest
+                });
+            }
+      
         }
 
 
@@ -52,8 +92,21 @@ namespace ARM_CRUD_API.v1.Controllers
         [Route("updateStaffIfExists")]
         public async Task<IActionResult> UpdateStaffIfExists([FromBody] StaffDTO staffDTO)
         {
-            var response = _staffService.UpdateStaffIfExists(staffDTO);
-            return Ok("Update Successfull");
+            try
+            {
+                var response = _staffService.UpdateStaffIfExists(staffDTO);
+                return Ok("Update Successfull");
+            }
+            catch (Exception)
+            {
+                return BadRequest(new ErrorResponse
+                {
+                    Title = "Unsuccessfull",
+                    ErrorMessage = "The was an issue updating.",
+                    StatusCode = StatusCodes.Status400BadRequest
+                });
+            }
+    
         }
 
 
@@ -61,8 +114,22 @@ namespace ARM_CRUD_API.v1.Controllers
         [Route("deleteStaffIfExists")]
         public async Task<IActionResult> DeleteStaffIfExists(int staffId)
         {
-            var response = _staffService.DeleteStaffIfExists(staffId);
-            return Ok("Delete Successfull");    
+
+            try
+            {
+                var response = _staffService.DeleteStaffIfExists(staffId);
+                return Ok("Delete Successfull");
+            }
+            catch (Exception)
+            {
+                return BadRequest(new ErrorResponse
+                {
+                    Title = "Unsuccessfull",
+                    ErrorMessage = "The was an issue deleting.",
+                    StatusCode = StatusCodes.Status400BadRequest
+                });
+            }
+      
         }
 
 
